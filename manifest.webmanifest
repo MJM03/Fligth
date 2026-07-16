@@ -1,8 +1,8 @@
 {
-  "name": "AeroRadar — Tráfico aéreo",
+  "name": "AeroRadar v2 — Tráfico aéreo",
   "short_name": "AeroRadar",
-  "description": "Demo móvil de seguimiento de aeronaves con datos ADS-B públicos.",
-  "start_url": "./",
+  "description": "Radar aéreo PWA con selección automática entre varias fuentes ADS-B públicas.",
+  "start_url": "./?v=2.0.0",
   "scope": "./",
   "display": "standalone",
   "background_color": "#07111f",
