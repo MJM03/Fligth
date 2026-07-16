@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#07111f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AeroRadar">
+  <title>AeroRadar — Tráfico aéreo en vivo</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="icon" href="icon-192.png">
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://tile.openstreetmap.org">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">AR</div>
+        <div>
+          <h1>AeroRadar</h1>
+          <span>LIVE FLIGHT TRACKING · v1.0.0</span>
+        </div>
+      </div>
+      <div class="live-pill"><i></i><span id="sourceText">Conectando</span></div>
+    </header>
+
+    <main>
+      <section class="map-wrap">
+        <div id="map"></div>
+
+        <div class="search-panel glass">
+          <span class="search-icon">⌕</span>
+          <input id="searchInput" type="search" placeholder="Vuelo, matrícula o ICAO..." autocomplete="off">
+          <button id="clearSearch" aria-label="Limpiar">×</button>
+        </div>
+
+        <div class="map-actions">
+          <button id="locateBtn" class="round-btn" title="Mi ubicación">⌖</button>
+          <button id="refreshBtn" class="round-btn" title="Actualizar">↻</button>
+          <button id="layersBtn" class="round-btn" title="Cambiar mapa">◫</button>
+        </div>
+
+        <div class="stats glass">
+          <div><strong id="aircraftCount">0</strong><span>Aeronaves</span></div>
+          <div><strong id="airborneCount">0</strong><span>En vuelo</span></div>
+          <div><strong id="avgAltitude">—</strong><span>Alt. media</span></div>
+        </div>
+
+        <div id="notice" class="notice hidden"></div>
+
+        <div id="flightSheet" class="flight-sheet">
+          <button id="sheetHandle" class="sheet-handle" aria-label="Expandir panel"></button>
+          <button id="closeSheet" class="sheet-close" aria-label="Cerrar">×</button>
+          <div class="flight-header">
+            <div class="flight-ident">
+              <span class="aircraft-badge">✈</span>
+              <div>
+                <h2 id="flightCallsign">—</h2>
+                <p id="flightReg">Selecciona una aeronave</p>
+              </div>
+            </div>
+            <button id="followBtn" class="follow-btn">Seguir</button>
+          </div>
+          <div class="route-row">
+            <div><span>ORIGEN</span><strong id="origin">—</strong></div>
+            <div class="route-line"><i></i><b>✈</b><i></i></div>
+            <div><span>DESTINO</span><strong id="destination">—</strong></div>
+          </div>
+          <div class="telemetry-grid">
+            <article><span>ALTITUD</span><strong id="altitude">—</strong><small>ft</small></article>
+            <article><span>VELOCIDAD</span><strong id="speed">—</strong><small>kt</small></article>
+            <article><span>RUMBO</span><strong id="heading">—</strong><small>°</small></article>
+            <article><span>ASCENSO</span><strong id="verticalRate">—</strong><small>ft/min</small></article>
+          </div>
+          <div class="details-list">
+            <div><span>ICAO 24-bit</span><b id="hex">—</b></div>
+            <div><span>Tipo</span><b id="aircraftType">—</b></div>
+            <div><span>Posición</span><b id="position">—</b></div>
+            <div><span>Último contacto</span><b id="lastSeen">—</b></div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="desktop-panel">
+        <div class="panel-head">
+          <div>
+            <span>TRÁFICO VISIBLE</span>
+            <h2>Aeronaves cercanas</h2>
+          </div>
+          <button id="desktopRefresh">↻</button>
+        </div>
+        <div id="aircraftList" class="aircraft-list"></div>
+      </aside>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="active"><span>⌖</span><b>Mapa</b></button>
+      <button id="listTab"><span>☷</span><b>Vuelos</b></button>
+      <button id="favoritesTab"><span>☆</span><b>Favoritos</b></button>
+      <button id="settingsTab"><span>⚙</span><b>Ajustes</b></button>
+    </nav>
+
+    <div id="modal" class="modal hidden">
+      <div class="modal-card">
+        <button class="modal-close" id="modalClose">×</button>
+        <h2 id="modalTitle">Ajustes</h2>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
